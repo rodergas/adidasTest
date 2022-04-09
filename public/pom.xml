@@ -9,12 +9,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.adidas.test</groupId>
-	<artifactId>email</artifactId>
+	<artifactId>public</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>email-service</name>
-	<description>Email service</description>
+	<name>public</name>
+	<description>Public service</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

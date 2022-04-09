@@ -11,5 +11,6 @@ public class EmailService {
     public void sendEmail(String in) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         CreateSubscriptionEvent createSubscriptionEvent = objectMapper.readValue(in, CreateSubscriptionEvent.class);
+        System.out.println("llego");
     }
 }

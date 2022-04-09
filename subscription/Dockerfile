@@ -1,4 +1,5 @@
-FROM adoptopenjdk/openjdk15:alpine
+FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} subscriptionService.jar
-ENTRYPOINT ["java","-jar","/subscriptionService.jar"]
+ADD ${JAR_FILE} subscription.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/subscription.jar"]

@@ -1,4 +1,5 @@
-FROM adoptopenjdk/openjdk15:alpine
+FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} emailService.jar
-ENTRYPOINT ["java","-jar","/emailService.jar"]
+ADD ${JAR_FILE} email.jar
+EXPOSE 8081
+ENTRYPOINT ["java","-jar","/email.jar"]
