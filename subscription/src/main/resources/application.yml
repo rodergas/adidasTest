@@ -5,6 +5,13 @@ topic:
   name: t.newsletter.createSubscription
 
 spring:
+  jpa:
+    hibernate.ddl-auto: update
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: compose-postgres
+    password: compose-postgres
   kafka:
     bootstrap-servers: localhost:9094
     producer:

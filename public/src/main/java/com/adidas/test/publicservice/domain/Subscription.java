@@ -1,12 +1,11 @@
 package com.adidas.test.publicservice.domain;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.Date;
 
-@Builder
 @Getter
+@NoArgsConstructor
 public class Subscription {
         private String email;
         private String gender;

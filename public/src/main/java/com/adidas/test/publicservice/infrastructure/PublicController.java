@@ -15,8 +15,8 @@ public class PublicController {
     }
 
     @PostMapping
-    public void createNewSubscription(@RequestBody Subscription subscription) {
-        this.publicService.createSubscription(subscription);
+    public Subscription createNewSubscription(@RequestBody Subscription subscription) {
+        return this.publicService.createSubscription(subscription);
     }
 
     @DeleteMapping("/{id}")

@@ -14,8 +14,8 @@ public class SubscriptionRestController {
     }
 
     @PostMapping
-    public Subscription createNewSubscription() {
-        return this.subscriptionService.createSubscription();
+    public Subscription createNewSubscription(@RequestBody Subscription subscription) {
+        return this.subscriptionService.createSubscription(subscription);
     }
 
     @DeleteMapping("/{id}")

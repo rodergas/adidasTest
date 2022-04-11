@@ -19,6 +19,7 @@ public class PublicService {
     }
 
     public Subscription createSubscription(Subscription subscription){
+
         ResponseEntity<Subscription> response = restTemplate
                 .exchange(subscriptionServiceURL + "/subscriptions", HttpMethod.POST, new HttpEntity<>(subscription), Subscription.class);
         return response.getBody();
