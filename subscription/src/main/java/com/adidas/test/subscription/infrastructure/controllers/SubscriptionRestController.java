@@ -4,6 +4,7 @@ import com.adidas.test.subscription.application.SubscriptionService;
 import com.adidas.test.subscription.domain.Subscription;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -16,7 +17,7 @@ public class SubscriptionRestController {
     }
 
     @PostMapping
-    public Subscription createNewSubscription(@RequestBody Subscription subscription) {
+    public Subscription createNewSubscription(@Valid @RequestBody Subscription subscription) {
         return this.subscriptionService.createSubscription(subscription);
     }
 

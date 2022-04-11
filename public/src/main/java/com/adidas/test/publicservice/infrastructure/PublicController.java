@@ -4,10 +4,14 @@ import com.adidas.test.publicservice.application.PublicService;
 import com.adidas.test.publicservice.domain.Subscription;
 import com.adidas.test.publicservice.domain.SubscriptionCreateDTO;
 import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.Locale;
 import java.util.Optional;
@@ -23,7 +27,7 @@ public class PublicController {
     }
 
     @PostMapping
-    public ResponseEntity<SubscriptionCreateDTO> createNewSubscription(@RequestBody Subscription subscription) {
+    public ResponseEntity<SubscriptionCreateDTO> createNewSubscription(@Valid @RequestBody Subscription subscription) {
         SubscriptionCreateDTO subscriptionSaved = publicService.createSubscription(subscription);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -53,4 +57,5 @@ public class PublicController {
     public Iterable<Subscription> getAllSubscriptions() {
         return publicService.getAllSubscriptions();
     }
+
 }
