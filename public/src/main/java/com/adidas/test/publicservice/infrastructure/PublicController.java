@@ -54,8 +54,8 @@ public class PublicController {
     }
 
     @GetMapping
-    public Iterable<Subscription> getAllSubscriptions() {
-        return publicService.getAllSubscriptions();
+    public ResponseEntity<Iterable<Subscription>> getAllSubscriptions() {
+        return ResponseEntity.ok(publicService.getAllSubscriptions());
     }
 
 }
