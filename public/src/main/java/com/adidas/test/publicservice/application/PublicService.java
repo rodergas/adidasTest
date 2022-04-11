@@ -1,6 +1,7 @@
 package com.adidas.test.publicservice.application;
 
 import com.adidas.test.publicservice.domain.Subscription;
+import com.adidas.test.publicservice.domain.SubscriptionCreateDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -21,10 +22,10 @@ public class PublicService {
         this.subscriptionServiceURL = subscriptionServiceURL;
     }
 
-    public Subscription createSubscription(Subscription subscription){
+    public SubscriptionCreateDTO createSubscription(Subscription subscription){
 
-        ResponseEntity<Subscription> response = restTemplate
-                .exchange(subscriptionServiceURL + "/subscriptions", HttpMethod.POST, new HttpEntity<>(subscription), Subscription.class);
+        ResponseEntity<SubscriptionCreateDTO> response = restTemplate
+                .exchange(subscriptionServiceURL + "/subscriptions", HttpMethod.POST, new HttpEntity<>(subscription), SubscriptionCreateDTO.class);
         return response.getBody();
     }
 
