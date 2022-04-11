@@ -1,6 +1,14 @@
 version: "3.7"
 
 
+networks:
+  public:
+    name: public-net
+    driver: bridge
+  secure:
+    name: secure-net
+    driver: bridge
+
 services:
 
   email-service:
@@ -9,6 +17,8 @@ services:
       - "8081:8081"
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    networks:
+      - secure
     depends_on:
       - kafka
 
@@ -16,6 +26,8 @@ services:
     image: subscription:0.1.0
     ports:
       - "8080:8080"
+    networks:
+      - secure
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
@@ -25,8 +37,12 @@ services:
     depends_on:
       - kafka
 
+
   public-service:
     image: public:0.1.0
+    networks:
+      - public
+      - secure
     environment:
       subscriptionServiceURL : http://subscription-service:8080
     ports:
@@ -35,6 +51,8 @@ services:
   db:
     image: 'postgres:13.1-alpine'
     container_name: db
+    networks:
+      - secure
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
@@ -44,12 +62,16 @@ services:
   zookeeper:
     image: zookeeper:3.7.0
     container_name: zookeeper
+    networks:
+      - secure
     ports:
       - "2181:2181"
 
   kafka:
     image: obsidiandynamics/kafka
     container_name: kafka
+    networks:
+      - secure
     ports:
       - "9092:9092"
       - "9094:9094"
@@ -67,6 +89,8 @@ services:
   kafdrop:
     image: obsidiandynamics/kafdrop
     container_name: kafdrop
+    networks:
+      - secure
     restart: "no"
     ports:
       - "9000:9000"
