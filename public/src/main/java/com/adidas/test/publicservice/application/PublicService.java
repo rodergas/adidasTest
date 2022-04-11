@@ -43,10 +43,10 @@ public class PublicService {
         return response.getBody();
     }
 
-    public String cancelSubscription(Long id){
+    public Optional<Subscription> cancelSubscription(Long id){
 
-        ResponseEntity<String> response = restTemplate
-                .exchange(subscriptionServiceURL + String.format("/subscriptions/%s",id), HttpMethod.DELETE, null, String.class);
+        ResponseEntity<Optional<Subscription>> response = restTemplate
+                .exchange(subscriptionServiceURL + String.format("/subscriptions/%s",id), HttpMethod.DELETE, null,  new ParameterizedTypeReference<Optional<Subscription>>() {});
         return response.getBody();
     }
 }

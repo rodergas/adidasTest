@@ -21,9 +21,8 @@ public class SubscriptionRestController {
     }
 
     @DeleteMapping("/{id}")
-    public String cancelSubscriptionById(@PathVariable Long id) {
-        subscriptionService.deleteSubscription(id);
-        return "ID: ";
+    public Optional<Subscription> cancelSubscriptionById(@PathVariable Long id) {
+        return subscriptionService.deleteSubscription(id);
     }
 
     @GetMapping("/{id}")

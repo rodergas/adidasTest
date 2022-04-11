@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Locale;
 import java.util.Optional;
 
 @RestController
@@ -35,8 +36,10 @@ public class PublicController {
     }
 
     @DeleteMapping("/{id}")
-    public String cancelSubscriptionById(@PathVariable Long id) {
-        return publicService.cancelSubscription(id);
+    public ResponseEntity cancelSubscriptionById(@PathVariable Long id) {
+        return publicService.cancelSubscription(id)
+                .map(subs -> ResponseEntity.noContent().build())
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}")
