@@ -4,6 +4,8 @@ import com.adidas.test.subscription.application.SubscriptionService;
 import com.adidas.test.subscription.domain.Subscription;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/subscriptions")
 public class SubscriptionRestController {
@@ -19,17 +21,18 @@ public class SubscriptionRestController {
     }
 
     @DeleteMapping("/{id}")
-    public String cancelSubscriptionById(@PathVariable String id) {
+    public String cancelSubscriptionById(@PathVariable Long id) {
+        subscriptionService.deleteSubscription(id);
         return "ID: ";
     }
 
     @GetMapping("/{id}")
-    public String getSubscriptionById(@PathVariable String id) {
-        return "ID: " + id;
+    public Optional<Subscription> getSubscriptionById(@PathVariable Long id) {
+        return subscriptionService.getSubscription(id);
     }
 
     @GetMapping
-    public String getAllSubscriptions() {
-        return "All subscriptions ";
+    public Iterable<Subscription> getAllSubscriptions() {
+        return subscriptionService.getAllSubscriptions();
     }
 }
