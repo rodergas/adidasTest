@@ -8,6 +8,8 @@ spring:
   kafka:
     bootstrap-servers: localhost:9094
     producer:
+      properties:
+        spring.json.type.mapping: 'eventSubscription:com.adidas.test.subscription.domain.Subscription'
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 

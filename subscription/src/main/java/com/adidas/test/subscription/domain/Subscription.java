@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Builder
 @Getter
-public class CreateSubscriptionEvent {
+public class Subscription {
         private String email;
         private String gender;
         private Date birthDate;

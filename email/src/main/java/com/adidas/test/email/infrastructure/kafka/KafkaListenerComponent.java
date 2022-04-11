@@ -1,6 +1,6 @@
 package com.adidas.test.email.infrastructure.kafka;
 import com.adidas.test.email.application.EmailService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.adidas.test.email.domain.Subscription;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ public class KafkaListenerComponent {
             topics = {"t.newsletter.createSubscription"}
     )
 
-    public void listen(String in) throws JsonProcessingException {
+    public void listen(Subscription in) {
         emailService.sendEmail(in);
     }
 }
