@@ -4,26 +4,27 @@ version: "3.7"
 services:
 
   email-service:
-    image: email-image:1
-    build: ./email
-    container_name: email-service
+    image: email:0.1.0
     ports:
       - "8081:8081"
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
 
   subscription-service:
-    image: subscription-image:1
-    build: ./subscription
-    container_name: subscription-service
+    image: subscription:0.1.0
     ports:
       - "8080:8080"
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
+
+  public-service:
+    image: public:0.1.0
+    ports:
+      - "8083:8083"
 
   db:
     image: 'postgres:13.1-alpine'
@@ -48,7 +49,7 @@ services:
     environment:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_INTERNAL:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
       KAFKA_LISTENERS: DOCKER_INTERNAL://:29092,DOCKER_EXTERNAL://:9092
-      KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://kafka:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_INTERNAL
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_BROKER_ID: 1
