@@ -2,6 +2,9 @@ server:
   port: 8081
 
 spring:
+  mail:
+    host: localhost
+    port: 1025
   kafka:
     bootstrap-servers: localhost:9094
     consumer:
@@ -9,3 +12,7 @@ spring:
         spring.json.type.mapping: 'eventSubscription:com.adidas.test.email.domain.Subscription'
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+kafka:
+  topics:
+    subscription: t.newsletter.createSubscription

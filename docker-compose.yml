@@ -17,10 +17,12 @@ services:
       - "8081:8081"
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_MAIL_HOST: mailhog
     networks:
       - secure
     depends_on:
       - kafka
+      - mailhog
 
   subscription-service:
     image: subscription:0.1.0
@@ -98,3 +100,12 @@ services:
       KAFKA_BROKERCONNECT: "kafka:9092"
     depends_on:
       - "kafka"
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - secure
