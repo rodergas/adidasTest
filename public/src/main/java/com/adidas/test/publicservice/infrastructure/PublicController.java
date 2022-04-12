@@ -3,6 +3,7 @@ package com.adidas.test.publicservice.infrastructure;
 import com.adidas.test.publicservice.application.PublicService;
 import com.adidas.test.publicservice.domain.Subscription;
 import com.adidas.test.publicservice.domain.SubscriptionCreateDTO;
+import com.adidas.test.publicservice.exceptions.SubscriptionNotFoundException;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,14 +44,14 @@ public class PublicController {
     public ResponseEntity cancelSubscriptionById(@PathVariable Long id) {
         return publicService.cancelSubscription(id)
                 .map(subs -> ResponseEntity.noContent().build())
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new SubscriptionNotFoundException(String.format("Subscription with id %s not found", id)));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Subscription> getSubscriptionById(@PathVariable Long id) {
         return publicService.getSubscriptionById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new SubscriptionNotFoundException(String.format("Subscription with id %s not found", id)));
     }
 
     @GetMapping

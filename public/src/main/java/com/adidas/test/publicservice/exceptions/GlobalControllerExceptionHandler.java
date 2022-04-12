@@ -22,7 +22,13 @@ public class GlobalControllerExceptionHandler {
     public ResponseEntity handleContraintViolationException(MethodArgumentNotValidException  exception) {
         List<String> errors = exception.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("error", errors);
+        body.put("errors", errors);
         return ResponseEntity.badRequest().body(body);
+    }
+
+    @ExceptionHandler(SubscriptionNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleSubscriberNotFound(RuntimeException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
