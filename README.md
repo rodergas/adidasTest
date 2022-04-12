@@ -17,8 +17,12 @@ The documentation is able in the following url http://localhost:8083/swagger-ui.
 ## BONUS 1
 Either sketch, draw or implement a CI/CD pipeline proposal for the app.
     
- 1. Make an image of each microservice
- 2. Publish that image in some image repository like docker hub
- 3. Make a config Kubernetes deploy file
-    - Has to reference all the images we have created previously
-    - Has to inform all environment variables
+ 1. When a pull request is made it should build and test the code automatically
+ 2. Has to check that the code covers at least 90%
+ 3. It should be reviewed and approved by some people
+ 4. When code merging is going to be made it should trigger
+    - Publish the builded image in some image repository like docker hub
+    - The Kubernetes deploy file
+      - Has to reference all the images we have created previously
+      - Has to inform all environment variables
+    - Deploy the code to the chosen environment
