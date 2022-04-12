@@ -1,10 +1,19 @@
 server:
   port: 8080
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
+
 topic:
   name: t.newsletter.createSubscription
 
 spring:
+  application:
+    name: subscription-service
   jpa:
     hibernate.ddl-auto: update
     hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect

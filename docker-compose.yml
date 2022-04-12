@@ -10,6 +10,14 @@ networks:
     driver: bridge
 
 services:
+  eureka-service:
+    image: eureka-service:0.1.0
+    ports:
+      - "8761:8761"
+    networks:
+      - secure
+      - public
+
 
   email-service:
     image: email:0.1.0
@@ -23,6 +31,7 @@ services:
     depends_on:
       - kafka
       - mailhog
+      - eureka-service
 
   subscription-service:
     image: subscription:0.1.0
@@ -31,6 +40,7 @@ services:
     networks:
       - secure
     environment:
+      EUREKA_URI: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
       SPRING_DATASOURCE_USERNAME: compose-postgres
@@ -38,17 +48,19 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       - kafka
-
+      - eureka-service
 
   public-service:
     image: public:0.1.0
     networks:
       - public
       - secure
-    environment:
-      subscriptionServiceURL : http://subscription-service:8080
     ports:
       - "8083:8083"
+    environment:
+      EUREKA_URI: http://eureka-service:8761/eureka/
+    depends_on:
+      - eureka-service
 
   db:
     image: 'postgres:13.1-alpine'

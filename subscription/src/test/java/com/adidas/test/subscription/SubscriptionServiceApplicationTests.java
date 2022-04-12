@@ -24,8 +24,4 @@ class SubscriptionServiceApplicationTests {
 		registry.add("spring.datasource.username", postgresDB::getUsername);
 		registry.add("spring.datasource.password", postgresDB::getPassword);
 	}
-	@Test
-	void contextLoads() {
-	}
-
 }
