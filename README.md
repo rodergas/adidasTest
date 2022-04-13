@@ -12,7 +12,7 @@ Maven and Docker must be installed
 
 ## Documentation
 
-The documentation is able in the following url http://localhost:8083/swagger-ui.html
+The documentation is available in the following url http://localhost:8083/swagger-ui.html
 
 ## BONUS 1
 Either sketch, draw or implement a CI/CD pipeline proposal for the app.
